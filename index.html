@@ -1,9 +1,10 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Kak Galloo 🎂</title>
+<title>A Special Letter For Kak Galloo</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -17,17 +18,20 @@ font-family:'Poppins',sans-serif;
 
 body{
 background:linear-gradient(180deg,#020617,#0f172a,#1e293b);
-height:100vh;
-overflow:hidden;
+min-height:100vh;
+overflow-x:hidden;
+overflow-y:auto;
 display:flex;
 justify-content:center;
 align-items:center;
+padding:30px 15px;
 color:white;
 }
 
 .stars{
 position:fixed;
 inset:0;
+z-index:0;
 }
 
 .star{
@@ -46,88 +50,148 @@ animation:twinkle 3s infinite;
 .container{
 position:relative;
 z-index:10;
+width:100%;
+display:flex;
+justify-content:center;
+}
+
+.intro{
 text-align:center;
-padding:20px;
+}
+
+.title{
+font-size:clamp(28px,5vw,42px);
+font-weight:700;
+margin-bottom:15px;
+}
+
+.subtitle{
+color:#cbd5e1;
+margin-bottom:35px;
 }
 
 .envelope{
-width:220px;
-height:140px;
-background:#e5e7eb;
+width:260px;
+height:170px;
 margin:auto;
 position:relative;
 cursor:pointer;
-border-radius:8px;
-transition:.5s;
-box-shadow:0 15px 35px rgba(0,0,0,.3);
+transition:.4s;
 }
 
 .envelope:hover{
 transform:translateY(-8px);
 }
 
-.envelope::before{
-content:'';
+.envelope-body{
 position:absolute;
-top:0;
-left:0;
+bottom:0;
 width:100%;
-height:100%;
-clip-path:polygon(0 0,50% 55%,100% 0);
-background:#cbd5e1;
+height:120px;
+background:#e2e8f0;
+border-radius:0 0 12px 12px;
 }
 
-.envelope::after{
-content:'💌';
+.envelope-top{
 position:absolute;
-font-size:40px;
-top:45px;
+width:100%;
+height:100%;
+background:#cbd5e1;
+clip-path:polygon(0 0,50% 60%,100% 0);
+}
+
+.heart{
+position:absolute;
+top:70px;
 left:50%;
 transform:translateX(-50%);
+font-size:40px;
 }
 
 .tap{
-margin-top:20px;
-color:#cbd5e1;
+margin-top:25px;
+color:#94a3b8;
 }
 
 .countdown{
-font-size:80px;
 display:none;
+font-size:90px;
 font-weight:700;
+text-align:center;
 }
 
 .card{
 display:none;
-max-width:800px;
+width:min(92vw,850px);
+max-height:85vh;
+overflow-y:auto;
 background:rgba(255,255,255,.08);
-backdrop-filter:blur(15px);
-border:1px solid rgba(255,255,255,.1);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,.12);
 border-radius:25px;
 padding:35px;
-text-align:left;
-line-height:2;
 box-shadow:0 20px 60px rgba(0,0,0,.4);
+}
+
+.card::-webkit-scrollbar{
+width:8px;
+}
+
+.card::-webkit-scrollbar-thumb{
+background:rgba(255,255,255,.2);
+border-radius:20px;
 }
 
 .card h1{
 text-align:center;
-margin-bottom:20px;
+margin-bottom:25px;
+font-size:clamp(26px,4vw,38px);
 }
 
-.signature{
-margin-top:30px;
-text-align:right;
-font-weight:600;
+.message{
+white-space:pre-wrap;
+line-height:2;
+font-size:16px;
+color:#f8fafc;
 }
 
 .cursor{
-display:inline-block;
 animation:blink .8s infinite;
 }
 
 @keyframes blink{
 50%{opacity:0;}
+}
+
+.divider{
+margin:35px 0;
+height:1px;
+background:rgba(255,255,255,.15);
+}
+
+.signature{
+text-align:center;
+line-height:2;
+color:#e2e8f0;
+}
+
+.birthday{
+margin-top:25px;
+text-align:center;
+font-size:22px;
+display:none;
+animation:fadeIn 1s ease;
+}
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
 }
 
 .confetti{
@@ -136,11 +200,21 @@ width:10px;
 height:10px;
 top:-10px;
 animation:fall linear forwards;
+z-index:999;
 }
 
 @keyframes fall{
 to{
 transform:translateY(110vh) rotate(720deg);
+}
+}
+
+@media(max-width:600px){
+.card{
+padding:25px;
+}
+.message{
+font-size:15px;
 }
 }
 </style>
@@ -152,42 +226,63 @@ transform:translateY(110vh) rotate(720deg);
 
 <div class="container">
 
-<div id="intro">
-<div class="envelope" onclick="startExperience()"></div>
-<p class="tap">📨 Click the envelope, Kak Galloo</p>
+<div id="intro" class="intro">
+
+<div class="title">📩 A Special Letter For Kak Galloo</div>
+
+<div class="subtitle">
+Someone wants you to read this...
+</div>
+
+<div class="envelope" onclick="startExperience()">
+<div class="envelope-top"></div>
+<div class="envelope-body"></div>
+<div class="heart">🤍</div>
+</div>
+
+<div class="tap">
+Tap the envelope
+</div>
+
 </div>
 
 <div id="countdown" class="countdown"></div>
 
 <div id="card" class="card">
+
 <h1>🎂 Happy Birthday Kak Galloo 🎂</h1>
 
-<p id="message"></p>
+<div id="message" class="message"></div>
+
+<div class="divider"></div>
 
 <div class="signature">
 With appreciation,<br>
-Brigittaa 
+<strong>Brigittaa 🤍</strong>
 </div>
+
+<div id="birthday" class="birthday">
+🎂 Happy Birthday Once Again, Kak Galloo 🎂<br><br>
+✨ Hope this year brings you joy, growth, and countless blessings ✨<br><br>
+P.S. Jangan bilang hadiahnya jelek ya 😌
 </div>
 
 </div>
 
-<audio id="music" loop>
-<source src="happy-birthday-instrumental.mp3" type="audio/mpeg">
-</audio>
+</div>
 
 <script>
 
 for(let i=0;i<150;i++){
-let star=document.createElement('div');
-star.className='star';
-star.style.left=Math.random()*100+'%';
-star.style.top=Math.random()*100+'%';
-star.style.animationDelay=Math.random()*3+'s';
-document.getElementById('stars').appendChild(star);
+let star=document.createElement("div");
+star.className="star";
+star.style.left=Math.random()*100+"%";
+star.style.top=Math.random()*100+"%";
+star.style.animationDelay=Math.random()*3+"s";
+document.getElementById("stars").appendChild(star);
 }
 
-const text=`Once again, Happy Birthday Kak Galloo 🥳🥳
+const text = `Once again, Happy Birthday Kak Galloo 🥳🥳
 
 Ini hadiahnya yeaa broo WKWKW.
 Walaupun lu udah tau isi hadiahnya, semoga tetep suka yaa dan dipake xixixi 🤟🏻
@@ -208,35 +303,31 @@ Yeahh sekian ucapan dari sayaa~
 
 Terima kasihh udah jadi kakak yang baik buat acuuu!! 😋😋
 
-Happy Birthday once again, Kak Galloo 🎂`;
+Happy Birthday once again, Kak Galloo 🎂🤍`;
 
 function startExperience(){
 
-document.getElementById('intro').style.display='none';
+document.getElementById("intro").style.display="none";
 
-const music=document.getElementById('music');
-music.play();
+const countdown=document.getElementById("countdown");
+countdown.style.display="block";
 
-const countdown=document.getElementById('countdown');
-countdown.style.display='block';
-
-let numbers=['3','2','1'];
-
+let nums=["3","2","1","✨"];
 let i=0;
 
-let interval=setInterval(()=>{
+let timer=setInterval(()=>{
 
-countdown.innerHTML=numbers[i];
-
+countdown.innerHTML=nums[i];
 i++;
 
-if(i===numbers.length){
+if(i===nums.length){
 
-clearInterval(interval);
+clearInterval(timer);
 
-countdown.innerHTML='✨';
-
-setTimeout(showLetter,1000);
+setTimeout(()=>{
+countdown.style.display="none";
+showLetter();
+},800);
 
 }
 
@@ -246,19 +337,20 @@ setTimeout(showLetter,1000);
 
 function showLetter(){
 
-document.getElementById('countdown').style.display='none';
+const card=document.getElementById("card");
+card.style.display="block";
 
-let card=document.getElementById('card');
-
-card.style.display='block';
-
-let msg=document.getElementById('message');
+const message=document.getElementById("message");
 
 let i=0;
 
 let typing=setInterval(()=>{
 
-msg.innerHTML=text.substring(0,i)+'<span class="cursor">|</span>';
+message.innerHTML =
+text.substring(0,i) +
+'<span class="cursor">|</span>';
+
+card.scrollTop = card.scrollHeight;
 
 i++;
 
@@ -266,11 +358,15 @@ if(i>text.length){
 
 clearInterval(typing);
 
+document.querySelector(".cursor")?.remove();
+
 launchConfetti();
+
+document.getElementById("birthday").style.display="block";
 
 }
 
-},25);
+},20);
 
 }
 
@@ -278,25 +374,27 @@ function launchConfetti(){
 
 for(let i=0;i<120;i++){
 
-let conf=document.createElement('div');
+let conf=document.createElement("div");
 
-conf.className='confetti';
+conf.className="confetti";
 
-conf.style.left=Math.random()*100+'vw';
+conf.style.left=Math.random()*100+"vw";
 
 conf.style.background=
-['#ffffff','#60a5fa','#93c5fd','#cbd5e1']
+["#ffffff","#93c5fd","#60a5fa","#cbd5e1"]
 [Math.floor(Math.random()*4)];
 
 conf.style.animationDuration=
-(3+Math.random()*3)+'s';
+(3+Math.random()*3)+"s";
 
 document.body.appendChild(conf);
 
 }
+
 }
 
 </script>
 
 </body>
 </html>
+```

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Kak Galloo 🎂</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:linear-gradient(180deg,#020617,#0f172a,#1e293b);
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+}
+
+.stars{
+position:fixed;
+inset:0;
+}
+
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+border-radius:50%;
+animation:twinkle 3s infinite;
+}
+
+@keyframes twinkle{
+50%{opacity:.2;}
+}
+
+.container{
+position:relative;
+z-index:10;
+text-align:center;
+padding:20px;
+}
+
+.envelope{
+width:220px;
+height:140px;
+background:#e5e7eb;
+margin:auto;
+position:relative;
+cursor:pointer;
+border-radius:8px;
+transition:.5s;
+box-shadow:0 15px 35px rgba(0,0,0,.3);
+}
+
+.envelope:hover{
+transform:translateY(-8px);
+}
+
+.envelope::before{
+content:'';
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+clip-path:polygon(0 0,50% 55%,100% 0);
+background:#cbd5e1;
+}
+
+.envelope::after{
+content:'💌';
+position:absolute;
+font-size:40px;
+top:45px;
+left:50%;
+transform:translateX(-50%);
+}
+
+.tap{
+margin-top:20px;
+color:#cbd5e1;
+}
+
+.countdown{
+font-size:80px;
+display:none;
+font-weight:700;
+}
+
+.card{
+display:none;
+max-width:800px;
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,.1);
+border-radius:25px;
+padding:35px;
+text-align:left;
+line-height:2;
+box-shadow:0 20px 60px rgba(0,0,0,.4);
+}
+
+.card h1{
+text-align:center;
+margin-bottom:20px;
+}
+
+.signature{
+margin-top:30px;
+text-align:right;
+font-weight:600;
+}
+
+.cursor{
+display:inline-block;
+animation:blink .8s infinite;
+}
+
+@keyframes blink{
+50%{opacity:0;}
+}
+
+.confetti{
+position:fixed;
+width:10px;
+height:10px;
+top:-10px;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+to{
+transform:translateY(110vh) rotate(720deg);
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="container">
+
+<div id="intro">
+<div class="envelope" onclick="startExperience()"></div>
+<p class="tap">📨 Click the envelope, Kak Galloo</p>
+</div>
+
+<div id="countdown" class="countdown"></div>
+
+<div id="card" class="card">
+<h1>🎂 Happy Birthday Kak Galloo 🎂</h1>
+
+<p id="message"></p>
+
+<div class="signature">
+With appreciation,<br>
+Brigittaa 
+</div>
+</div>
+
+</div>
+
+<audio id="music" loop>
+<source src="happy-birthday-instrumental.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+for(let i=0;i<150;i++){
+let star=document.createElement('div');
+star.className='star';
+star.style.left=Math.random()*100+'%';
+star.style.top=Math.random()*100+'%';
+star.style.animationDelay=Math.random()*3+'s';
+document.getElementById('stars').appendChild(star);
+}
+
+const text=`Once again, Happy Birthday kak Galloo 🥳🥳
+
+Ini hadiahnya yeaa broo WKWKW.
+Walaupun lu udah tau isi hadiahnyaa, semoga tetep suka yaa dan dipake xixixi 🤟🏻
+
+Nah kemarin aku belum sempet ngasih wish ke kak Gallo, jadi disini yaaa...
+
+Wish dari aku buat kak Gallo, semoga apapun yang kak Gallo usahakan segera terusahakan, semakin bertumbuh dalam Tuhan, sehat selalu, kurang"in minum" nyaa 😌, tetep jaga kesehatan.
+
+Dan selalu inget kalau kak Gallo itu matters dan deserve to be loved by around you.
+
+Jadi jangan ngerasa kalau terus harus bahagiain orang lain. Inget buat love yourself juga okeiii ✨🤟🏻
+
+Yeahh sekian ucapan dari sayaa.
+
+Terima kasihh udh menjadi kakak yg baik buat acuuu!! 😋😋
+
+Happy Birthday once again, Kak Galloo 🎂`;
+
+function startExperience(){
+
+document.getElementById('intro').style.display='none';
+
+const music=document.getElementById('music');
+music.play();
+
+const countdown=document.getElementById('countdown');
+countdown.style.display='block';
+
+let numbers=['3','2','1'];
+
+let i=0;
+
+let interval=setInterval(()=>{
+
+countdown.innerHTML=numbers[i];
+
+i++;
+
+if(i===numbers.length){
+
+clearInterval(interval);
+
+countdown.innerHTML='✨';
+
+setTimeout(showLetter,1000);
+
+}
+
+},1000);
+
+}
+
+function showLetter(){
+
+document.getElementById('countdown').style.display='none';
+
+let card=document.getElementById('card');
+
+card.style.display='block';
+
+let msg=document.getElementById('message');
+
+let i=0;
+
+let typing=setInterval(()=>{
+
+msg.innerHTML=text.substring(0,i)+'<span class="cursor">|</span>';
+
+i++;
+
+if(i>text.length){
+
+clearInterval(typing);
+
+launchConfetti();
+
+}
+
+},25);
+
+}
+
+function launchConfetti(){
+
+for(let i=0;i<120;i++){
+
+let conf=document.createElement('div');
+
+conf.className='confetti';
+
+conf.style.left=Math.random()*100+'vw';
+
+conf.style.background=
+['#ffffff','#60a5fa','#93c5fd','#cbd5e1']
+[Math.floor(Math.random()*4)];
+
+conf.style.animationDuration=
+(3+Math.random()*3)+'s';
+
+document.body.appendChild(conf);
+
+}
+}
+
+</script>
+
+</body>
+</html>
